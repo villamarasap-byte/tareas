@@ -1,0 +1,200 @@
+function contarPalabras(texto) {
+    if (texto.length === 0) {
+        return 0;
+    }
+    let contador = 0;
+    let esPalabra = false;
+    for (let i = 0; i < texto.length; i++) {
+        const char = texto[i];
+        if (char !== ' ' && char !== '\n' && char !== '\r') {
+            if (!esPalabra) {
+                contador++;
+                esPalabra = true;
+            }
+        } else {
+            esPalabra = false;
+        }
+    }
+    return contador;
+}
+
+function contarParrafos(texto) {
+    if (texto.length === 0) {
+        return 0;
+    }
+    let contador = 1;
+    for (let i = 0; i < texto.length; i++) {
+        if (texto[i] === '\n') {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+function contarIniciales(texto) {
+    let mayusculas = 0;
+    let minusculas = 0;
+    if (texto.length === 0) {
+        return { mayusculas: 0, minusculas: 0 };
+    }
+    let esInicioPalabra = true;
+    for (let i = 0; i < texto.length; i++) {
+        const char = texto[i];
+        if (char === ' ' || char === '\n' || char === '\r') {
+            esInicioPalabra = true;
+        } else if (esInicioPalabra) {
+            const asciiCode = char.charCodeAt(0); 
+            if (asciiCode >= 65 && asciiCode <= 90) { // A-Z
+                mayusculas++;
+                esInicioPalabra = false;
+            } else if (asciiCode >= 97 && asciiCode <= 122) { // a-z
+                minusculas++;
+                esInicioPalabra = false;
+            } else {
+                esInicioPalabra = false;
+            }
+        } else {
+            esInicioPalabra = false;
+        }
+    }
+    return { 
+        mayusculas: mayusculas,
+        minusculas: minusculas
+    };
+}
+
+function contarTodosCaracteres(texto) {
+    return texto.length;
+}
+
+function contarSignosPuntuacion(texto) {
+    let contador = 0;
+    const signos = ".,;:!?¿¡\""; 
+    for (let i = 0; i < texto.length; i++) {
+        const char = texto[i];
+        for (let j = 0; j < signos.length; j++) {
+            if (char === signos[j]) {
+                contador++;
+                break;
+            }
+        }
+    }
+    return contador;
+}
+
+function contarVocales(texto) {
+    let contador = 0;
+    const vocales = "aeiouAEIOU";
+    for (let i = 0; i < texto.length; i++) {
+        const char = texto[i];
+        for (let j = 0; j < vocales.length; j++) {
+            if (char === vocales[j]) {
+                contador++;
+                break;
+            }
+        }
+    }
+    return contador;
+}
+
+function contarDigitos(texto) {
+    let contador = 0;
+    const digitos = "0123456789";
+    for (let i = 0; i < texto.length; i++) {
+        const char = texto[i];
+        for (let j = 0; j < digitos.length; j++) {
+            if (char === digitos[j]) {
+                contador++;
+                break;
+            }
+        }
+    }
+    return contador;
+}
+
+function contarConsonantes(texto) {
+    let contador = 0;
+    const vocales = "aeiouAEIOU";
+    for (let i = 0; i < texto.length; i++) {
+        const char = texto[i];
+        const asciiCode = char.charCodeAt(0); 
+        const esLetra = (asciiCode >= 65 && asciiCode <= 90) || (asciiCode >= 97 && asciiCode <= 122);
+        
+        if (esLetra) {
+            let esVocal = false;
+            for (let j = 0; j < vocales.length; j++) {
+                if (char === vocales[j]) {
+                    esVocal = true;
+                    break;
+                }
+            }
+            if (!esVocal) {
+                contador++;
+            }
+        }
+    }
+    return contador;
+}
+
+function contarPosicionesPares(texto) {
+    let contador = 0;
+    for (let i = 0; i < texto.length; i++) {
+        if (i % 2 === 0) { 
+            contador++;
+        }
+    }
+    return contador;
+}
+
+function contarPosicionesImpares(texto) {
+    let contador = 0;
+    for (let i = 0; i < texto.length; i++) {
+        if (i % 2 !== 0) { 
+            contador++;
+        }
+    }
+    return contador;
+}
+
+function invertirTexto(texto) {
+    let textoInvertido = "";
+    for (let i = texto.length - 1; i >= 0; i--) {
+        textoInvertido = textoInvertido + texto[i];
+    }
+    return textoInvertido;
+}
+
+function anadirTexto(textoOriginal, fragmento) {
+    const alInicio = fragmento + textoOriginal;
+    const alFinal = textoOriginal + fragmento;
+    return { alInicio: alInicio, alFinal: alFinal };
+}
+
+function contarCaracterEspecifico(texto, caracter) {
+    let contador = 0;
+    for (let i = 0; i < texto.length; i++) {
+        if (texto[i] === caracter) {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+function buscarPalabra(texto, palabra) {
+    if (palabra.length > texto.length) {
+        return false;
+    }
+    for (let i = 0; i <= texto.length - palabra.length; i++) {
+        let coincide = true;
+        for (let j = 0; j < palabra.length; j++) {
+            if (texto[i + j] !== palabra[j]) {
+                coincide = false;
+                break;
+            }
+        }
+        if (coincide) {
+            return true;
+        }
+    }
+    return false;
+}
